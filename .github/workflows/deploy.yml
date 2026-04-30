@@ -8,6 +8,11 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    
+    # ADDED PERMISSIONS BLOCK
+    permissions:
+      contents: read
+      deployments: write
 
     steps:
       - name: Checkout code
