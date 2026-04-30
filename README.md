@@ -29,100 +29,84 @@ export default config;
 
 ## Deployment
 
-### Option 1: GitHub Pages (Free Testing)
+### Vercel via GitHub Actions (Current Setup)
 
-Best for quick testing before custom domain.
+Every push to `main` automatically builds and deploys to Vercel using GitHub Actions and the Vercel CLI.
 
-**Step 1: Initialize Git repo (if not already done)**
+#### How it works
 
-```bash
-cd /Users/mina/Coding/MarioKiroForm
-git init
-git add .
-git commit -m "Initial commit: Mario Kiro inquiry form"
+The workflow at `.github/workflows/deploy.yml` runs on every push to `main`:
+
+```yaml
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Vercel
+        run: npx vercel --token=${{ secrets.VERCEL_TOKEN }} --prod --yes
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 ```
 
-**Step 2: Push to GitHub**
+#### Required GitHub Secrets
 
-Create a new repo on GitHub named `MarioKiroForm`, then:
+Go to your repo → **Settings → Secrets and variables → Actions** and add:
 
-```bash
-git remote add origin https://github.com/YOUR_USERNAME/MarioKiroForm.git
-git branch -M main
-git push -u origin main
+| Secret | Where to find it |
+|---|---|
+| `VERCEL_TOKEN` | vercel.com/account/tokens → Create Token |
+| `VERCEL_ORG_ID` | Vercel project → Settings → General |
+| `VERCEL_PROJECT_ID` | Vercel project → Settings → General (starts with `prj_`) |
+
+#### Vercel Alias
+
+The project is aliased to `1oakstudio-inquiry.vercel.app` via `vercel.json` at the project root:
+
+```json
+{
+  "alias": ["1oakstudio-inquiry.vercel.app"]
+}
 ```
 
-**Step 3: Enable GitHub Pages**
+#### Custom Domain (Planned)
 
-1. Go to your repo: `github.com/YOUR_USERNAME/MarioKiroForm`
-2. Settings → Pages
-3. Under "Build and deployment":
-   - Source: Deploy from a branch
-   - Branch: `gh-pages` / `root`
-   - Click "Save"
+The planned production domain is `forms.1oakstudio.com` (domain not yet purchased).
 
-**Step 4: Deploy**
+Once the domain is acquired:
+1. Go to Vercel project → **Settings → Domains** → Add `forms.1oakstudio.com`
+2. Add a CNAME record at your domain registrar pointing to Vercel's provided value
+3. DNS propagation takes up to 24–48 hours
+
+#### Manual Deploy (if needed)
 
 ```bash
-npm run build
-git add dist -f
-git commit -m "Deploy to GitHub Pages"
-git subtree push --prefix dist origin gh-pages
+npm i -g vercel
+vercel --prod
 ```
-
-Your site will be live at: `https://YOUR_USERNAME.github.io/MarioKiroForm`
-
-**To automate this in future, use:**
-```bash
-npm run deploy:gh-pages
-```
-
----
-
-### Option 2: Custom Domain (forms.mariokiro.com)
-
-For production, deploy to a custom domain using Vercel or Netlify (recommended, both free tiers available).
-
-#### Deploy to Vercel (Recommended — easiest)
-
-1. **Install Vercel CLI:**
-   ```bash
-   npm i -g vercel
-   ```
-
-2. **Deploy:**
-   ```bash
-   cd /Users/mina/Coding/MarioKiroForm
-   vercel
-   ```
-
-3. **Connect custom domain:**
-   - Vercel project settings → Domains → Add `forms.mariokiro.com`
-   - Update your domain registrar's DNS to point to Vercel (Vercel provides CNAME records)
-
-#### Deploy to Netlify
-
-1. **Connect GitHub repo:**
-   - Go to [netlify.com](https://netlify.com)
-   - Click "New site from Git"
-   - Connect your GitHub repo
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-
-2. **Connect custom domain:**
-   - Site settings → Domain management → Add custom domain
-   - Update your domain registrar's DNS
-
-#### Deploy to Custom Hosting (Shared Hosting, VPS, etc.)
-
-1. **Build the project:**
-   ```bash
-   npm run build
-   ```
-
-2. **Upload `dist/` folder** to your hosting provider via FTP/SSH.
-
-3. **Point your domain** (`forms.mariokiro.com`) to your hosting via DNS settings.
 
 ---
 
@@ -130,15 +114,18 @@ For production, deploy to a custom domain using Vercel or Netlify (recommended, 
 
 ```
 MarioKiroForm/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml       # GitHub Actions → Vercel deployment
 ├── src/
 │   ├── InquiryForm.jsx      # Main form component
 │   ├── config.js            # WhatsApp number configuration
 │   ├── main.jsx             # React entry point
 │   └── styles.css           # Global styles (Tailwind CDN + custom)
 ├── index.html               # App host
+├── vercel.json              # Vercel alias config
 ├── vite.config.js           # Vite configuration
 ├── package.json             # Dependencies & scripts
-├── CNAME                    # Custom domain config (for GitHub Pages + custom domain)
 └── README.md
 ```
 
@@ -150,6 +137,7 @@ MarioKiroForm/
 - ✅ WhatsApp direct messaging on submit
 - ✅ Clean, elegant UI with Tailwind CSS
 - ✅ No backend required (client-side only)
+- ✅ Auto-deploys to Vercel on every push to `main`
 - ✅ Easy to customize colors, fields, and copy
 
 ---
@@ -185,9 +173,9 @@ Edit the `handleSubmit` function in `src/InquiryForm.jsx` to customize the messa
 
 ---
 
-## Questions?
+## Links
 
-For Vercel: https://vercel.com/docs
-For Netlify: https://docs.netlify.com/
-For GitHub Pages: https://pages.github.com/
-
+- **Vercel project:** https://vercel.com/mina-nabils-projects/mariokiro-inquiry
+- **Vercel alias:** https://1oakstudio-inquiry.vercel.app
+- **Planned domain:** forms.1oakstudio.com (not yet purchased)
+- **Vercel docs:** https://vercel.com/docs
