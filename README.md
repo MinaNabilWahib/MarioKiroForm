@@ -31,12 +31,12 @@ export default config;
 
 ### Vercel Git Deployments
 
-Both Vercel projects are connected directly to this GitHub repository. Vercel automatically builds every push and creates a preview deployment. Set the production branch in each project under **Settings → Git**:
+The workflow at `.github/workflows/deploy.yml` deploys both production branches automatically:
 
-- `mariokiro-inquiry` → `1oak-studios`
-- `mariokero-inquiry` → `mariokero`
+- `1oak-studios` → `mariokiro-inquiry`
+- `mariokero` → `mariokero-inquiry`
 
-After this one-time setting, pushing to either branch automatically updates its matching production URL. No GitHub Actions workflow or Vercel secrets are required.
+The workflow requires these GitHub Actions secrets: `VERCEL_TOKEN` and `VERCEL_ORG_ID`. Pushing to either branch builds and updates its matching production URL.
 
 ### Branch Deployments
 
