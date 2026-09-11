@@ -21,7 +21,8 @@ const InquiryForm = () => {
 
     const targetPhoneNumber = config.whatsappNumber;
 
-    const message = `📸 *New Photography Inquiry for ${config.brandName}!* 📸\n
+    const brandLabel = [config.brandMark, config.brandName].filter(Boolean).join(' ');
+    const message = `📸 *New Photography Inquiry for ${brandLabel}!* 📸\n
 *Bride & Groom:* ${formData.names}
 *Instagram:* ${formData.instagram}
 *Event Date:* ${formData.date}
@@ -40,6 +41,11 @@ const InquiryForm = () => {
       <div className="max-w-3xl w-full bg-white p-6 sm:p-12 rounded-lg shadow-lg">
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-serif mb-1 tracking-wide" style={{ color: '#b89565', lineHeight: 1.1 }}>
+            {config.brandMark && (
+              <span style={{ display: 'inline-block', fontSize: '1.35em', marginRight: '0.08em' }}>
+                {config.brandMark}
+              </span>
+            )}
             {config.brandName}
           </h1>
           <p className="text-[10px] sm:text-xs tracking-[0.22em] text-gray-500 uppercase">
