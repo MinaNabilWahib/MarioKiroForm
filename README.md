@@ -82,15 +82,31 @@ Go to your repo → **Settings → Secrets and variables → Actions** and add:
 | `VERCEL_ORG_ID` | Vercel project → Settings → General |
 | `VERCEL_PROJECT_ID` | Vercel project → Settings → General (starts with `prj_`) |
 
-#### Vercel Alias
+### Branch Deployments
 
-The project is aliased to `1oakstudio-inquiry.vercel.app` via `vercel.json` at the project root:
+The repository has two production branches:
+
+| Branch | Brand | Suggested Vercel URL |
+|---|---|---|
+| `1oak-studios` | 1 OAK STUDIOS | `https://1oakstudio-inquiry.vercel.app` |
+| `mariokero` | Mario Kiro | `https://mariokero-inquiry.vercel.app` |
+
+Create two Vercel projects from this GitHub repository:
+
+1. Project `1oakstudio-inquiry`: set the production branch to `1oak-studios`.
+2. Project `mariokero-inquiry`: set the production branch to `mariokero`.
+3. Add the suggested domain to each project under **Settings → Domains**.
+4. Enable automatic deployments from the connected GitHub repository.
+
+Each branch contains its own `vercel.json` alias:
 
 ```json
 {
   "alias": ["1oakstudio-inquiry.vercel.app"]
 }
 ```
+
+The `mariokero` branch uses `mariokero-inquiry.vercel.app` instead.
 
 #### Custom Domain (Planned)
 
@@ -175,7 +191,6 @@ Edit the `handleSubmit` function in `src/InquiryForm.jsx` to customize the messa
 
 ## Links
 
-- **Vercel project:** https://vercel.com/mina-nabils-projects/mariokiro-inquiry
-- **Vercel alias:** https://1oakstudio-inquiry.vercel.app
-- **Planned domain:** forms.1oakstudio.com (not yet purchased)
+- **1OAK URL:** https://1oakstudio-inquiry.vercel.app
+- **Mario Kiro URL:** https://mariokero-inquiry.vercel.app
 - **Vercel docs:** https://vercel.com/docs
