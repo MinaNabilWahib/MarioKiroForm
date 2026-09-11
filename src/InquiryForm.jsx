@@ -19,9 +19,9 @@ const InquiryForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const targetPhoneNumber = config.whatsappNumber; // from config
+    const targetPhoneNumber = config.whatsappNumber;
 
-    const message = `📸 *New Photography Inquiry for 1 OAK STUDIOS!* 📸\n
+    const message = `📸 *New Photography Inquiry for ${config.brandName}!* 📸\n
 *Bride & Groom:* ${formData.names}
 *Instagram:* ${formData.instagram}
 *Event Date:* ${formData.date}
@@ -40,8 +40,7 @@ const InquiryForm = () => {
       <div className="max-w-3xl w-full bg-white p-6 sm:p-12 rounded-lg shadow-lg">
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-serif mb-1 tracking-wide" style={{ color: '#b89565', lineHeight: 1.1 }}>
-            <span style={{ display: 'inline-block', fontSize: '1.35em', marginRight: '0.08em' }}>1</span>
-            OAK STUDIOS
+            {config.brandName}
           </h1>
           <p className="text-[10px] sm:text-xs tracking-[0.22em] text-gray-500 uppercase">
             Photography + Cinematography
