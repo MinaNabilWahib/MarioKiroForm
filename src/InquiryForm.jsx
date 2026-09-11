@@ -43,7 +43,7 @@ const InquiryForm = () => {
             {config.brandName}
           </h1>
           <p className="text-[10px] sm:text-xs tracking-[0.22em] text-gray-500 uppercase">
-            Films
+            Films 
           </p>
         </div>
 
