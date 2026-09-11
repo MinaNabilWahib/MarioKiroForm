@@ -39,8 +39,9 @@ const InquiryForm = () => {
     <div className="min-h-screen flex justify-center py-8 px-4 sm:px-6 lg:px-8 font-sans" style={{ backgroundColor: '#f7f7f7' }}>
       <div className="max-w-3xl w-full bg-white p-6 sm:p-12 rounded-lg shadow-lg">
         <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-serif mb-1 tracking-wide" style={{ color: '#b89565' }}>
-            1 OAK STUDIOS
+          <h1 className="text-4xl sm:text-5xl font-serif mb-1 tracking-wide" style={{ color: '#b89565', lineHeight: 1.1 }}>
+            <span style={{ display: 'inline-block', fontSize: '1.35em', marginRight: '0.08em' }}>1</span>
+            OAK STUDIOS
           </h1>
           <p className="text-[10px] sm:text-xs tracking-[0.22em] text-gray-500 uppercase">
             Photography + Cinematography
