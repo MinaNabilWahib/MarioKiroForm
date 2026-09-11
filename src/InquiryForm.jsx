@@ -8,7 +8,6 @@ const InquiryForm = () => {
     date: '',
     eventType: '',
     venue: '',
-    guests: '',
     help: ''
   });
 
@@ -22,13 +21,12 @@ const InquiryForm = () => {
 
     const targetPhoneNumber = config.whatsappNumber; // from config
 
-    const message = `📸 *New Photography Inquiry for Mario Kiro!* 📸\n
+    const message = `📸 *New Photography Inquiry for 1 OAK STUDIOS!* 📸\n
 *Bride & Groom:* ${formData.names}
 *Instagram:* ${formData.instagram}
 *Event Date:* ${formData.date}
 *Event Type:* ${formData.eventType}
 *Planned Venue:* ${formData.venue}
-*Expected Guests:* ${formData.guests}
 *Additional Notes:* ${formData.help ? formData.help : 'None'}`;
 
     const encodedMessage = encodeURIComponent(message);
@@ -41,11 +39,11 @@ const InquiryForm = () => {
     <div className="min-h-screen flex justify-center py-8 px-4 sm:px-6 lg:px-8 font-sans" style={{ backgroundColor: '#f7f7f7' }}>
       <div className="max-w-3xl w-full bg-white p-6 sm:p-12 rounded-lg shadow-lg">
         <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-serif mb-2 tracking-wide" style={{ color: '#b89565' }}>
-            Mario Kiro
+          <h1 className="text-4xl sm:text-5xl font-serif mb-1 tracking-wide" style={{ color: '#b89565' }}>
+            1 OAK STUDIOS
           </h1>
-          <p className="text-xs sm:text-sm tracking-[0.3em] text-gray-400 uppercase">
-            Photography
+          <p className="text-[10px] sm:text-xs tracking-[0.22em] text-gray-500 uppercase">
+            Photography + Cinematography
           </p>
         </div>
 
@@ -127,19 +125,6 @@ const InquiryForm = () => {
             <input 
               type="text" 
               name="venue" 
-              required 
-              onChange={handleChange} 
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all" 
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">
-              <span className="text-red-500 mr-1">*</span>Expected Number of Guests:
-            </label>
-            <input 
-              type="number" 
-              name="guests" 
               required 
               onChange={handleChange} 
               className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all" 
