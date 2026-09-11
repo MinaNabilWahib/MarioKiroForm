@@ -1,7 +1,7 @@
 const config = {
-  brandName: "1 OAK STUDIOS",
-  pageTitle: "1 OAK STUDIOS — Inquiry",
-  whatsappNumber: "201094402570"
+  brandName: "Mario Kiro",
+  pageTitle: "Mario Kiro — Inquiry",
+  whatsappNumber: "201033770018"
 }
 
 export default config;
