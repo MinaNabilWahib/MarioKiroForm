@@ -29,58 +29,14 @@ export default config;
 
 ## Deployment
 
-### Vercel via GitHub Actions (Current Setup)
+### Vercel Git Deployments
 
-Every push to `main` automatically builds and deploys to Vercel using GitHub Actions and the Vercel CLI.
+Both Vercel projects are connected directly to this GitHub repository. Vercel automatically builds every push and creates a preview deployment. Set the production branch in each project under **Settings → Git**:
 
-#### How it works
+- `mariokiro-inquiry` → `1oak-studios`
+- `mariokero-inquiry` → `mariokero`
 
-The workflow at `.github/workflows/deploy.yml` runs on every push to `main`:
-
-```yaml
-name: Deploy to Vercel
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
-      - name: Deploy to Vercel
-        run: npx vercel --token=${{ secrets.VERCEL_TOKEN }} --prod --yes
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-```
-
-#### Required GitHub Secrets
-
-Go to your repo → **Settings → Secrets and variables → Actions** and add:
-
-| Secret | Where to find it |
-|---|---|
-| `VERCEL_TOKEN` | vercel.com/account/tokens → Create Token |
-| `VERCEL_ORG_ID` | Vercel project → Settings → General |
-| `VERCEL_PROJECT_ID` | Vercel project → Settings → General (starts with `prj_`) |
+After this one-time setting, pushing to either branch automatically updates its matching production URL. No GitHub Actions workflow or Vercel secrets are required.
 
 ### Branch Deployments
 
